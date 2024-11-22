@@ -14,11 +14,7 @@ static QString getPluginName()
 {
     static const QString name = !qEnvironmentVariableIsEmpty("QT_WEBVIEW_PLUGIN")
                                 ? QString::fromLatin1(qgetenv("QT_WEBVIEW_PLUGIN"))
-#ifdef Q_OS_MACOS
-                                : QStringLiteral("webengine");
-#else
                                 : QStringLiteral("native");
-#endif // Q_OS_MACOS
     return name;
 }
 

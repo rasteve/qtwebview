@@ -143,10 +143,14 @@ void tst_QWebView::loadHtml()
     const QWebViewLoadRequestPrivate &lr = loadChangedSingalSpy.at(1).at(0).value<QWebViewLoadRequestPrivate>();
     QCOMPARE(lr.m_status, QWebView::LoadSucceededStatus);
 
+// The following test is disabled because the content is not loaded in the same way in the webview
+// on darwin and url will be just the base url (which unless specified is about:blank)
+#if ! (defined(QT_PLATFORM_UIKIT) || defined(Q_OS_MACOS))
     QByteArray encoded("data:text/html;charset=UTF-8,");
     encoded.append(content.toPercentEncoding());
     QVERIFY(view.url().isValid());
-    QCOMPARE(QUrl(encoded), view.url());
+    QCOMPARE(view.url(), QUrl(encoded));
+#endif
 }
 
 void tst_QWebView::loadRequest()
